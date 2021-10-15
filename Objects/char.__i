@@ -1,0 +1,1 @@
+"char.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(..\keil) DEBUG OBJECTEXTEND PRINT(.\Listings\char.lst) TABS (2) OBJECT(.\Objects\char.obj)

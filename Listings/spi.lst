@@ -1,0 +1,44 @@
+C51 COMPILER V9.60.0.0   SPI                                                               05/22/2021 01:11:18 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SPI
+OBJECT MODULE PLACED IN .\Objects\spi.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE spi.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\keil) DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\spi.lst) TABS(2) OBJECT(.\Objects\spi.obj)
+
+line level    source
+
+   1          /*
+   2           * @Author: Eugene
+   3           * @Date: 2021-05-19 17:39:46
+   4           * @LastEditTime: 2021-05-20 11:15:16
+   5           * @LastEditors: Eugene
+   6           * @Description: 
+   7           * @FilePath: \keil\spi.c
+   8           */
+   9          #include "spi.h"
+  10          #define uchar unsigned char
+  11          void spi_read_write(uchar d)
+  12          {
+  13   1        unsigned char i;
+  14   1        for(i=0; i<8; i++)
+  15   1        {
+  16   2          SPI_MOSI = (d << i) & 0x80;
+  17   2          SPI_SCK = 0;
+  18   2          SPI_SCK = 1;
+  19   2        }
+  20   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     33    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

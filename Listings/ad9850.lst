@@ -1,0 +1,24 @@
+C51 COMPILER V9.60.0.0   AD9850                                                            05/22/2021 01:15:08 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE AD9850
+OBJECT MODULE PLACED IN .\Objects\ad9850.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ad9850.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\keil) DEBUG OBJECTEXTEND PRI
+                    -NT(.\Listings\ad9850.lst) TABS(2) OBJECT(.\Objects\ad9850.obj)
+
+line level    source
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

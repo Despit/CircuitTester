@@ -1,0 +1,62 @@
+C51 COMPILER V9.60.0.0   AD0808                                                            05/22/2021 09:47:58 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE AD0808
+OBJECT MODULE PLACED IN .\Objects\ad0808.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ad0808.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\keil) DEBUG OBJECTEXTEND PRI
+                    -NT(.\Listings\ad0808.lst) TABS(2) OBJECT(.\Objects\ad0808.obj)
+
+line level    source
+
+   1          /*
+   2           * @Author: Eugene
+   3           * @Date: 2021-05-20 11:16:27
+   4           * @LastEditTime: 2021-05-22 09:39:56
+   5           * @LastEditors: Eugene
+   6           * @Description:
+   7           * @FilePath: \keil\ad0808.c
+   8           */
+   9          #include "ad0808.h"
+  10          #include <AT89X52.h>
+  11          #include "config.h"
+  12          #include "delay.h"
+  13          #include "oled.h"
+  14          
+  15          void ADC_init(void)
+  16          {
+  17   1          TMOD |= 0x02;
+  18   1          TH0 = 231;
+  19   1          TL0 = 231;
+  20   1          IE = 0x82;
+  21   1          TR0 = 1;
+  22   1      }
+  23          
+  24          unsigned long int ADC_sample()
+  25          {
+  26   1          unsigned long int voltage, temp;
+  27   1          AD_START = 0;
+  28   1          AD_START = 1;
+  29   1          delay_ms(50);
+  30   1          AD_START = 0;
+  31   1          while (!AD_EOC)
+  32   1              ;
+  33   1          AD_OE = 1;
+  34   1          temp = AD_SAMPLE;
+  35   1          AD_OE = 0;
+  36   1          voltage = (470000.0 * temp / 256);
+  37   1          return voltage;
+  38   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     68    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

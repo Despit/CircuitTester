@@ -1,0 +1,123 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              05/22/2021 12:27:33 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\keil) DEBUG OBJECTEXTEND PRINT
+                    -(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          /*
+   2           * @Author: Eugene
+   3           * @Date: 2021-05-18 19:31:39
+   4           * @LastEditTime: 2021-05-22 12:27:27
+   5           * @LastEditors: Eugene
+   6           * @Description:
+   7           * @FilePath: \keil\main.c
+   8           */
+   9          #include <AT89X52.H>
+  10          #include "delay.h"
+  11          #include "oled.h"
+  12          #include "ad0808.h"
+  13          #include "ad9850.h"
+  14          uint timer2_count = 0;
+  15          unsigned long int V1 = 0, V2 = 0,Au=0;
+  16          char display[16] = {0};
+  17          char display2[16] = {0};
+  18          char display3[16] = {0};
+  19          const char *dis = display;
+  20          const char *dis2 = display2;
+  21          const char *dis3 = display3;
+  22          
+  23          void main()
+  24          {
+  25   1        void numchange(unsigned long int);
+  26   1        void numchange2(unsigned long int Vt);
+  27   1        void numchangefhe(unsigned long int Vt);
+  28   1        void oled_put_chars_8x16(uint x, uint y, const char *characters);
+  29   1        oled_init();
+  30   1        oled_put_chars_8x16(0, 2, "Init finish");
+  31   1        oled_clear();
+  32   1        ADC_init();
+  33   1        while (1)
+  34   1        {
+  35   2          ADD_A = 0;
+  36   2          V1 = ADC_sample()*1.0/11;
+  37   2          delay_ms(75);
+  38   2          ADD_A = 1;
+  39   2          V2 = ADC_sample();
+  40   2          Au=V2*1000.0/V1;
+  41   2          numchange2(V2);
+  42   2          numchange(V1);
+  43   2          numchangefhe(Au);
+  44   2        }
+  45   1      }
+  46          
+  47          void numchangefhe(unsigned long int Vt)
+  48          {
+  49   1        display3[6] = (Vt % 10) + '0';
+  50   1        display3[5] = ((Vt - Vt % 10) % 100 / 10) + '0';
+  51   1        display3[4] = ((Vt - Vt % 100) % 1000 / 100) + '0';
+  52   1        display3[2] = ((Vt - Vt % 1000) % 10000 / 1000) + '0';
+  53   1        display3[1] = ((Vt - Vt % 10000) % 100000 / 10000) + '0';
+  54   1        display3[3] = '.';
+C51 COMPILER V9.60.0.0   MAIN                                                              05/22/2021 12:27:33 PAGE 2   
+
+  55   1        if (Vt / 100000)
+  56   1          display3[0] = (Vt / 100000) + '0';
+  57   1        else
+  58   1          display3[0] = '0';
+  59   1        oled_put_chars_8x16(0, 3, "Au=");
+  60   1        oled_put_chars_8x16(6, 3, dis3);
+  61   1      }
+  62          
+  63          void numchange(unsigned long int Vt)
+  64          {
+  65   1        display[6] = (Vt % 10) + '0';
+  66   1        display[5] = ((Vt - Vt % 10) % 100 / 10) + '0';
+  67   1        display[4] = ((Vt - Vt % 100) % 1000 / 100) + '0';
+  68   1        display[3] = ((Vt - Vt % 1000) % 10000 / 1000) + '0';
+  69   1        display[2] = ((Vt - Vt % 10000) % 100000 / 10000) + '0';
+  70   1        display[1] = '.';
+  71   1        if (Vt / 100000)
+  72   1          display[0] = (Vt / 100000) + '0';
+  73   1        else
+  74   1          display[0] = '0';
+  75   1        oled_put_chars_8x16(1, 0, "V1=");
+  76   1        oled_put_chars_8x16(6, 0, dis);
+  77   1      }
+  78          
+  79          void numchange2(unsigned long int Vt)
+  80          {
+  81   1        display2[6] = (Vt % 10) + '0';
+  82   1        display2[5] = ((Vt - Vt % 10) % 100 / 10) + '0';
+  83   1        display2[4] = ((Vt - Vt % 100) % 1000 / 100) + '0';
+  84   1        display2[3] = ((Vt - Vt % 1000) % 10000 / 1000) + '0';
+  85   1        display2[2] = ((Vt - Vt % 10000) % 100000 / 10000) + '0';
+  86   1        display2[1] = '.';
+  87   1        if (Vt / 100000)
+  88   1          display2[0] = (Vt / 100000) + '0';
+  89   1        else
+  90   1          display2[0] = '0';
+  91   1        oled_put_chars_8x16(0, 1, "V2=");
+  92   1        oled_put_chars_8x16(6, 1, dis2);
+  93   1      }
+  94          void timer(void) interrupt 1 using 0
+  95          {
+  96   1        AD_CLK = !AD_CLK;
+  97   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1258    ----
+   CONSTANT SIZE    =     24    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     71      12
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

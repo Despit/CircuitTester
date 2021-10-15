@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "stdint.h": "c",
+        "oled.h": "c",
+        "stdint-gcc.h": "c",
+        "spi.h": "c",
+        "config.h": "c",
+        "delay.h": "c",
+        "char.h": "c",
+        "at89x52.h": "c",
+        "AT89X52.H": "cpp"
+    }
+}
